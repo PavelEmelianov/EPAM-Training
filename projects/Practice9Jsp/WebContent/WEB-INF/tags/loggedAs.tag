@@ -1,0 +1,1 @@
+<p align='right'>You are logged as ${currentRole.name} ${currentUser.fullName}, <a href='Logout'>logout</a></p>

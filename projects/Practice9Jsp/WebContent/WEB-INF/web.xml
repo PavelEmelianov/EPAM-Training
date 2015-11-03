@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<display-name>Practice9Jsp</display-name>
+
+	<welcome-file-list>
+		<welcome-file>IndexView</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>AddUserView</servlet-name>
+		<jsp-file>/jsp/admin/addUser.jsp</jsp-file>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AdminView</servlet-name>
+		<jsp-file>/jsp/admin/admin.jsp</jsp-file>
+	</servlet>
+
+	<servlet>
+		<servlet-name>ConfirmDeleteUserView</servlet-name>
+		<jsp-file>/jsp/admin/confirmDeleteUser.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>EditUserView</servlet-name>
+		<jsp-file>/jsp/admin/editUser.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>EditClientView</servlet-name>
+		<jsp-file>/jsp/client/editClient.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>IndexView</servlet-name>
+		<jsp-file>/jsp/login.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>ClientView</servlet-name>
+		<jsp-file>/jsp/client/client.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>ErrorPage</servlet-name>
+		<jsp-file>/jsp/errorPage.jsp</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AddUserView</servlet-name>
+		<url-pattern>/AddUserView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AdminView</servlet-name>
+		<url-pattern>/AdminView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ConfirmDeleteUserView</servlet-name>
+		<url-pattern>/ConfirmDeleteUserView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditUserView</servlet-name>
+		<url-pattern>/EditUserView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditClientView</servlet-name>
+		<url-pattern>/EditClientView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>IndexView</servlet-name>
+		<url-pattern>/IndexView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ClientView</servlet-name>
+		<url-pattern>/ClientView</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ErrorPage</servlet-name>
+		<url-pattern>/ErrorPage</url-pattern>
+	</servlet-mapping>
+
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>ua.nure.your_last_name.Practice9.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		<filter-name>SecurityFilter</filter-name>
+		<filter-class>ua.nure.your_last_name.Practice9.web.filter.SecurityFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>SecurityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+
+	<error-page>
+		<error-code>405</error-code>
+		<location>/ErrorPage</location>
+	</error-page>
+</web-app>

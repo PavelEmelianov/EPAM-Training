@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--============================================================
+	Deployment Descriptor: web.xml
+=============================================================-->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+
+	<display-name>ST4Example1</display-name>
+	
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+
+	
+<!--============================================================
+	Controller
+=============================================================-->
+	<servlet>
+		<servlet-name>Controller</servlet-name>
+		<servlet-class>ua.nure.your_last_name.SummaryTask4.web.Controller</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Controller</servlet-name>
+		<url-pattern>/controller</url-pattern>
+	</servlet-mapping>
+	
+	
+<!--============================================================
+	Encoding support filter
+=============================================================-->
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>ua.nure.your_last_name.SummaryTask4.web.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/WEB-INF/jsp/*</url-pattern>
+		<servlet-name>Controller</servlet-name>
+	</filter-mapping>
+
+	
+<!--============================================================
+	Security filter.
+	1) admin: admin commands
+	2) client: client commands
+	3) commons: commands for all roles
+	4) out-of-control: commands without access control
+	Delimiter - space/tab
+=============================================================-->
+<!-- 
+	<filter>
+		<filter-name>CommandAccessFilter</filter-name>
+		<filter-class>ua.nure.your_last_name.SummaryTask4.web.filter.CommandAccessFilter</filter-class>
+		<init-param>
+			<param-name>admin</param-name>
+			<param-value>listOrders</param-value>
+		</init-param>
+		<init-param>
+			<param-name>client</param-name>
+			<param-value>listMenu</param-value>
+		</init-param>
+		<init-param>
+			<param-name>common</param-name>
+			<param-value>logout noCommand viewSettings</param-value>
+		</init-param>
+		<init-param>
+			<param-name>out-of-control</param-name>
+			<param-value>login</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CommandAccessFilter</filter-name>
+		<servlet-name>Controller</servlet-name>
+	</filter-mapping>
+-->	
+
+<!--============================================================
+	Context listener
+=============================================================-->
+	<listener>
+		<listener-class>ua.nure.your_last_name.SummaryTask4.web.listener.ContextListener</listener-class>
+	</listener>
+	
+<!--============================================================
+	Error page
+=============================================================-->
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/WEB-INF/jsp/error_page.jsp</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/error_page.jsp</location>
+	</error-page>
+</web-app>

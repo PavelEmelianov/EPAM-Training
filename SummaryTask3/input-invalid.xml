@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Input XML document. This XML is invalid against Test.xsd XML schema -->
+
+<st3:Device xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:st3="http://nure.ua/emelianov/SummaryTask3/entity"
+	xsi:schemaLocation="http://nure.ua/emelianov/SummaryTask3/entity input.xsd">
+	
+	<Part critical="true">
+		<Name>Device 1</Name>
+		<Origin>China</Origin>
+		<Price>100 $</Price>
+	</Part>
+
+	<Part>
+		<Name>Device 2</Name>
+		<Origin>Japan</Origin>
+		<Price>200 $</Price>
+	</Part>
+
+	<Part critical="true">
+		<Name>Device 3</Name>
+		<Origin>Germany</Origin>
+		<Price>300 $</Price>
+	</Part>
+
+</st3:Device>

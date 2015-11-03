@@ -1,0 +1,17 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf"%>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+
+<div align="center">
+<table style="width: 100%"><tr><td>
+	<div style="float: right;">${sessionScope.user.fName}
+		${sessionScope.user.lName}
+		<c:if test="${sessionScope.user.roleId eq 0}">(<fmt:message key="users_jsp.admin"/>)</c:if>
+		<c:if test="${sessionScope.user.roleId eq 1}">( <fmt:message key="users_jsp.student"/>)</c:if>
+		<a href="controller?command=logout"><fmt:message key="admin_jsp.logout"/></a>
+	</div>
+	<div style="float: left;">
+		<a href="controller?command=homepage"><fmt:message key="all_homepage"/></a>
+	</div>
+	</td></tr></table>
+</div>

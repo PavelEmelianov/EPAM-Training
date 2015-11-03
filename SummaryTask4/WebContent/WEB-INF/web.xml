@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>SummaryTask4</display-name>
+  <welcome-file-list>
+    <welcome-file>Login.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>ua.nure.emelianov.SummaryTask4.web.Controller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/controller</url-pattern>
+  </servlet-mapping>
+
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>ua.nure.emelianov.SummaryTask4.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/WEB-INF/*</url-pattern>
+		<servlet-name>Controller</servlet-name>
+	</filter-mapping>
+	
+	<listener>
+		<listener-class>ua.nure.emelianov.SummaryTask4.listener.ContextListener</listener-class>
+	</listener>
+	
+	  <jsp-config>
+  <taglib>
+    <taglib-uri>http://journaldev.com/jsp/tlds/MyTags</taglib-uri>
+    <taglib-location>/WEB-INF/FormatNumber.tld</taglib-location>
+  </taglib>
+  </jsp-config>
+  
+    <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>resources</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
+    <param-value>ru</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>locales</param-name>
+  	<param-value>/WEB-INF/locales.properties</param-value>
+  </context-param>
+  
+	
+	
+</web-app>

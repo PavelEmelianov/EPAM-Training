@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Device>
+<Part critical="true">
+<Name>Device 1</Name>
+<Origin>Japan</Origin>
+<Price>200</Price>
+<Type>
+<Peripheral>false</Peripheral>
+<EnergyConsumption>500</EnergyConsumption>
+<CoolerAvailability>true</CoolerAvailability>
+<Group>Input</Group>
+<Ports>
+<COM>true</COM>
+<USB>true</USB>
+<LPT>true</LPT>
+</Ports>
+</Type>
+</Part>
+<Part critical="true">
+<Name>Device 3</Name>
+<Origin>Germany</Origin>
+<Price>300</Price>
+<Type>
+<Peripheral>false</Peripheral>
+<EnergyConsumption>400</EnergyConsumption>
+<CoolerAvailability>true</CoolerAvailability>
+<Group>Multimedia</Group>
+<Ports>
+<COM>true</COM>
+<USB>false</USB>
+<LPT>true</LPT>
+</Ports>
+</Type>
+</Part>
+<Part>
+<Name>Device 2</Name>
+<Origin>China</Origin>
+<Price>100</Price>
+<Type>
+<Peripheral>true</Peripheral>
+<EnergyConsumption>300</EnergyConsumption>
+<CoolerAvailability>false</CoolerAvailability>
+<Group>Output</Group>
+<Ports>
+<COM>false</COM>
+<USB>true</USB>
+<LPT>false</LPT>
+</Ports>
+</Type>
+</Part>
+<Part>
+<Name>Device 4</Name>
+<Origin>Italy</Origin>
+<Price>400</Price>
+<Type>
+<Peripheral>true</Peripheral>
+<EnergyConsumption>200</EnergyConsumption>
+<CoolerAvailability>false</CoolerAvailability>
+<Group>Input</Group>
+<Ports>
+<COM>false</COM>
+<USB>false</USB>
+<LPT>true</LPT>
+</Ports>
+</Type>
+</Part>
+</Device>

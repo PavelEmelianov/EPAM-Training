@@ -1,0 +1,79 @@
+<%--=========================================================================== 
+Header (top area). 
+===========================================================================--%> 
+
+<%@ page import="ua.nure.your_last_name.SummaryTask4.db.Role" %>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<tr>
+<td id="header">
+
+<c:if test="${not empty user}">
+<%--=========================================================================== 
+This is the user menu. 
+===========================================================================--%> 
+
+<div id="leftHeader">
+
+	<c:choose>
+
+<%--=========================================================================== 
+This way we define the ADMIN MENU. 
+===========================================================================--%> 
+		<c:when test="${userRole.name == 'admin' }">
+			<a href="controller?command=listOrders">All orders</a> &nbsp;
+		</c:when>
+
+		
+<%--=========================================================================== 
+This way we define the USER MENU.
+===========================================================================--%> 
+		<c:when test="${userRole.name == 'client'}">
+			<a href="controller?command=listMenu">Menu</a> &nbsp;
+		</c:when>
+	</c:choose>
+	
+<%--=========================================================================== 
+This way we define the settings anchor.
+===========================================================================--%> 
+	<a href="controller?command=viewSettings">Settings</a> &nbsp;
+
+</div>
+
+<%--=========================================================================== 
+This way we define the menu located at the right of header. 
+===========================================================================--%> 
+<div id="rightHeader" >
+
+<%--=========================================================================== 
+Type user name if the user object is presented in the current session.  
+===========================================================================--%> 
+	<c:out value="${user.firstName} ${user.lastName}"/>
+	
+<%--=========================================================================== 
+Type user role name if the user object is presented in the current session.  
+===========================================================================--%> 
+	<c:if test="${not empty userRole}">
+		<c:out value="(${userRole.name})"/>
+	</c:if>
+
+<%--=========================================================================== 
+Type link to logout  
+===========================================================================--%> 
+	<a href="controller?command=logout">
+		Logout
+	</a> 	
+
+</div>
+</c:if>
+
+<c:if test="${empty user and title ne 'Login'}">
+	<div id="rightHeader">
+		<a href="login.jsp">Login</a>
+	</div>
+</c:if>
+
+	</td>
+</tr>
+

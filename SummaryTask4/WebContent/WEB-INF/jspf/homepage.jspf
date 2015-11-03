@@ -1,0 +1,6 @@
+<div style="float: right;"> ${sessionScope.user.fName}
+			${sessionScope.user.lName} (admin) <a
+				href="controller?command=logout">Logout</a>
+		</div>
+		<div style="float: left;">Admin Homepage </div>
+		 <a href="controller?command=settings"><h3>Settings</a>

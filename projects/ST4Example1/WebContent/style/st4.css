@@ -1,0 +1,159 @@
+/***************************************************************
+CSS for all JSP pages
+***************************************************************/
+body {
+	margin: 0;
+}
+
+table {
+	border-collapse:collapse;
+}
+
+td {
+	border:1px solid black;
+	padding: 2px;
+}
+
+
+#header, #footer, .content {
+	border: 0px solid;	
+}
+
+/***************************************************************
+Style of the main table
+***************************************************************/
+#main-container {
+	width: 100%;
+	height: 100%;
+}
+
+/***************************************************************
+Header style (TD tag in the first top row)
+***************************************************************/
+#header {
+	background: #AAAAFF;
+	padding: 0px;
+}
+
+/***************************************************************
+Style for the left located head menu (DIV tag at left)
+***************************************************************/
+#leftHeader {
+	background: #AAAAFF;
+	float: left;
+	margin-left: 10px;
+	padding: 2px;
+}
+
+/***************************************************************
+Style for the right located head menu (DIV tag at right)
+***************************************************************/
+#rightHeader {
+	background: #AAAAFF;
+	float: right;
+	text-align: right;
+	margin-right: 10px;
+	padding: 2px;
+}
+
+/***************************************************************
+Content styles (TD tag in the main middle row)
+***************************************************************/
+.content {
+	height: 100%;
+	background: #BBBBFF;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	text-align: left;
+	vertical-align: top;
+}
+
+/***************************************************************
+Footer style (TD tag in the last bottom row)
+***************************************************************/
+#footer {
+	text-align: center;
+	background: #AAAAFF;
+}
+
+/***************************************************************
+Style for the ERROR message
+***************************************************************/
+.error {
+	font-size: large;
+	color: rgb(204, 0, 0);
+}
+
+/***************************************************************
+Miscellaneous
+***************************************************************/
+.center {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.noborder {
+	border: 2px solid red;	
+}
+
+/***************************************************************
+Login form (login.jsp)
+***************************************************************/
+#login_form > fieldset {
+	display: inline;
+}
+
+#login_form > input[type=submit] {
+	margin-top: 5px;
+}
+
+/***************************************************************
+Settings form (settings.jsp)
+***************************************************************/
+#settings_form > div > p {
+	font-size: 17px;
+	margin-top: 5px;
+	margin-bottom: 2px;
+}
+
+#settings_form > input[type=submit] {
+	margin-top: 10px;
+}
+
+/***************************************************************
+List menu table (list_menu.jsp)
+***************************************************************/
+#list_menu_table {
+	margin-top: 5px;
+}
+
+#list_menu_table thead {
+	text-align: center;
+}
+
+#list_menu_table td:last-child {
+	text-align: center;
+}
+
+/***************************************************************
+List order table (list_order.jsp)
+***************************************************************/
+#list_order_table > thead > tr {
+	text-align: center;
+}
+
+#list_order_table td + td + td {
+	text-align: center;
+}
+
+#list_order_table > tbody td + td + td + td {
+	text-align: left;
+}
+
+/***************************************************************
+Make order form (list_menu.jsp)
+***************************************************************/
+#make_order {
+	margin-top: 5px;
+}

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="${pkey}-${tname}" default="all">
+
+	<property name="root.package" value="ua.nure.${uname}.${tname}" />
+	<property name="test.suit" value="${root.package}.${class.to.handle}" />
+
+	<property name="build.sources.dir" location="${bdir}/src" />
+	<property name="build.sources.des" location="${bdir}/bin/classes" />
+	<property name="test.sources.dir" location="${bdir}/test" />
+	<property name="test.sources.des" location="${bdir}/bin/classes-test" />
+	<property name="test.reports.des" location="${bdir}/reports-junit" />
+	<property name="emma.sources.des" location="${bdir}/bin/classes-emma" />
+	<property name="emma.reports.des" location="${bdir}/reports-emma" />
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<property name="lib.home" location="/opt/libs" />
+
+	<path id="emma.lib">
+		<fileset dir="${lib.home}">
+			<include name="emma/lib/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="other.lib">
+		<fileset dir="${lib.home}">
+			<include name="log4j/*.jar" />
+			<include name="jdom/*.jar" />
+			<include name="xerces/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="junit.lib">
+		<fileset dir="${lib.home}">
+			<include name="junit/*.jar" />
+		</fileset>
+	</path>
+
+	<taskdef resource="emma_ant.properties" classpathref="emma.lib" />
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="clean">
+		<delete failonerror="no" includeemptydirs="on">
+			<fileset dir="${build.sources.des}" />
+			<fileset dir="${emma.sources.des}" />
+			<fileset dir="${test.sources.des}" />
+			<fileset dir="${test.reports.des}" />
+			<fileset dir="${emma.reports.des}" />
+			<fileset dir="${bdir}" includes="output.*.xml" />
+		</delete>
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="compile">
+
+		<delete verbose="on">
+			<fileset dir="${build.sources.dir}" includes="**/*.class" />
+			<fileset dir="${test.sources.dir}" includes="**/*.class" />
+		</delete>
+
+		<javac listfiles="on" debug="on" includeantruntime="no" encoding="${encoding}">
+			<compilerarg value="-Xlint:deprecation" />
+			<src path="${build.sources.dir}" />
+			<src path="${test.sources.dir}" />
+			<classpath>
+				<path refid="junit.lib" />
+				<path refid="other.lib" />
+			</classpath>
+		</javac>
+
+		<move todir="${build.sources.des}" verbose="true">
+			<fileset dir="${build.sources.dir}" includes="**/*.class" />
+		</move>
+
+		<move todir="${test.sources.des}" verbose="true">
+			<fileset dir="${test.sources.dir}" includes="**/*.class" />
+		</move>
+
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="run">
+		<echo message="${bdir}"/>
+		<java failonerror="on" classname="${root.package}.Demo" fork="on" dir="${bdir}">
+			<classpath>
+				<pathelement location="${build.sources.des}" />
+				<pathelement location="${test.sources.des}" />
+				<path refid="junit.lib" />
+				<path refid="other.lib" />
+			</classpath>
+		</java>	
+		
+		<for list=".DOM;.SAX;.STAX;.JAXB;.jdom.JDOM" param="name" delimiter=";">
+			<sequential>
+				<echo message="Try to run ${root.package}.controller@{name}Controller" />
+				<java failonerror="on" classname="${root.package}.controller@{name}Controller" fork="on" dir="${bdir}">
+					<classpath>
+						<pathelement location="${build.sources.des}" />
+						<pathelement location="${test.sources.des}" />
+						<path refid="junit.lib" />
+						<path refid="other.lib" />
+					</classpath>
+				</java>		
+			</sequential>
+		</for>
+	</target>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="emma-instr">
+		<emma enabled="on">
+			<instr instrpath="${build.sources.des}" destdir="${emma.sources.des}" metadatafile="${emma.reports.des}/coverage.em" merge="on" />
+		</emma>
+	</target>
+	
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="test">
+		<mkdir dir="${test.reports.des}" />
+
+		<junit printsummary="on" haltonfailure="on" dir="${bdir}" tempdir="${bdir}">
+			<formatter type="xml" />
+			<formatter type="brief" usefile="no" />
+
+			<classpath>
+				<pathelement location="${emma.sources.des}" />
+				<pathelement location="${test.sources.des}" />
+				<pathelement location="${build.sources.des}" />
+				<path refid="emma.lib" />
+				<path refid="junit.lib" />
+				<path refid="other.lib" />
+			</classpath>
+
+			<test todir="${test.reports.des}" fork="on" name="${test.suit}" />
+
+			<jvmarg value="-XX:-UseSplitVerifier" />
+			<jvmarg value="-Demma.coverage.out.file=${emma.reports.des}/coverage.ec" />
+			<jvmarg value="-Demma.coverage.out.merge=false" />
+			<jvmarg value="-Demma.verbosity.level=quiet" />
+		</junit>
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<target name="validate">
+		<echo message="Try to validate input.xml" />
+		<xmlvalidate file="${bdir}/input.xml">
+			<attribute name="http://apache.org/xml/features/validation/schema" value="true" />
+			<attribute name="http://xml.org/sax/features/namespaces" value="true" />
+		</xmlvalidate>
+		<for list="output.dom.xml;output.sax.xml;output.stax-high.xml;output.stax-low.xml;output.jdom.xml" param="output.xml" delimiter=";">
+			<sequential>
+				<echo message="Try to validate @{output.xml}" />
+				<xmlvalidate file="${bdir}/@{output.xml}">
+					<attribute name="http://apache.org/xml/features/validation/schema" value="true" />
+					<attribute name="http://xml.org/sax/features/namespaces" value="true" />
+					<property name="http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation" value="${bdir}/input-no-targetNamespace.xsd" />
+				</xmlvalidate>
+			</sequential>
+		</for>
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<target name="fail">
+		<fail message="No class to handle: class.to.handle not set.">
+			<condition>
+				<not>
+					<isset property="class.to.handle" />
+				</not>
+			</condition>
+		</fail>
+	</target>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<target name="all" depends="fail, clean, compile, run, validate, emma-instr, test" />
+
+</project>

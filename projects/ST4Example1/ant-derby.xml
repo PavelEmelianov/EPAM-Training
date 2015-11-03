@@ -1,0 +1,58 @@
+<!--
+ ====================================================================== 
+     17.01.2014
+     An alternative for the Apache Derby plugin. Contains ant targets:
+     1) to start/stop Derby network server
+     2) to run scripts
+     
+     Dmitry Kolesnikov                                                                
+     ====================================================================== 
+-->
+<project name="Derby">
+<!--
+ Derby home (we use the internal JavaDB of JDK (= Apache Derby) 
+-->
+	<property name="derby.home" value="${java.home}/../db" />
+	<!--  Derby libraries  -->
+	<path id="derby.classpath">
+		<fileset dir="${derby.home}/lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<!--  To start/stop derby server script (macros)  -->
+	<macrodef name="server">
+		<attribute name="arg" />
+		<sequential>
+			<java classname="org.apache.derby.drda.NetworkServerControl">
+				<arg value="@{arg}" />
+				<classpath refid="derby.classpath" />
+			</java>
+		</sequential>
+	</macrodef>
+	<!--  To start the Derby server  -->
+	<target name="server-start">
+		<server arg="start" />
+	</target>
+	<!--  To stop the Derby server  -->
+	<target name="server-stop">
+		<server arg="shutdown" />
+	</target>
+	<!--  To run script (macros)  -->
+	<macrodef name="run">
+		<attribute name="script" />
+		<sequential>
+			<java classname="org.apache.derby.tools.ij" fork="on">
+				<arg value="@{script}" />
+				<classpath refid="derby.classpath" />
+			</java>
+		</sequential>
+	</macrodef>
+	<!--  To run db-create.sql script  -->
+	<target name="run-db-create">
+		<run script="sql/dbcreate-derby.sql" />
+	</target>
+	<!--  To select run select.sql script  -->
+	<target name="run-select">
+		<run script="sql/select-test.sql" />
+	</target>
+</project>

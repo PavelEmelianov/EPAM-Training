@@ -1,0 +1,5 @@
+Если приложение считывает информацию из файла,
+то необходимо указать кодировку, в 
+которой она (информация) записана.
+if the sentence reads the information from file,
+coding must be written.

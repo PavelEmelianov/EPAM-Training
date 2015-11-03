@@ -1,0 +1,8 @@
+Login;Name;Email
+ivanov;Ivan Ivanov;ivanov@mail.ru
+petrov;Petr Petrov;petrov@google.com
+obama;Barack Obama;obama@google.com
+bush;George Bush;bush@mail.ru
+putin;Vladimir Putin;putin@yandex.com
+lukashenko;Alexander Lukashenko;lukashenko@rambler.ru
+klinton;Bill Klinton;klinton@yandex.com

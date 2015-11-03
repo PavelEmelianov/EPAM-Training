@@ -1,0 +1,12 @@
+<Context>
+  <Resource name="jdbc/p9db"
+  			auth="Container" 
+  			type="javax.sql.DataSource"
+			maxActive="100" maxIdle="30" maxWait="10000"
+			username="test" password="test" 
+			driverClassName="org.apache.derby.jdbc.ClientDriver"
+			defaultAutoCommit="true"
+			defaultTransactionIsolation="READ_COMMITTED"
+			connectionProperties="useUnicode=yes;characterEncoding=utf8;"
+			url="jdbc:derby://localhost/p9db"/>
+</Context>
